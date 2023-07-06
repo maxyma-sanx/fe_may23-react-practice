@@ -15,6 +15,11 @@ export const Filters = ({
     setQuery('');
   };
 
+  const handleResetClick = () => {
+    setQuery('');
+    setSelectedOwner('All');
+  };
+
   return (
     <div className="block">
       <nav className="panel">
@@ -120,6 +125,7 @@ export const Filters = ({
             data-cy="ResetAllButton"
             href="#/"
             className="button is-link is-outlined is-fullwidth"
+            onClick={handleResetClick}
           >
             Reset all filters
           </a>
