@@ -1,110 +1,130 @@
 import classNames from 'classnames';
 
-export const Filters = ({ owners, selectedOwner, setSelectedOwner }) => (
-  <div className="block">
-    <nav className="panel">
-      <p className="panel-heading">Filters</p>
+export const Filters = ({
+  owners,
+  selectedOwner,
+  setSelectedOwner,
+  query,
+  setQuery,
+}) => {
+  const handleQueryChange = (event) => {
+    setQuery(event.target.value);
+  };
 
-      <p className="panel-tabs has-text-weight-bold">
-        <a
-          data-cy="FilterAllUsers"
-          href="#/"
-          className={classNames({ 'is-active': selectedOwner === 'All' })}
-          onClick={() => setSelectedOwner('All')}
-        >
-          All
-        </a>
+  const handleClearClick = () => {
+    setQuery('');
+  };
 
-        {owners.map(owner => (
+  return (
+    <div className="block">
+      <nav className="panel">
+        <p className="panel-heading">Filters</p>
+
+        <p className="panel-tabs has-text-weight-bold">
           <a
-            data-cy="FilterUser"
+            data-cy="FilterAllUsers"
             href="#/"
-            className={classNames(
-              { 'is-active': selectedOwner === owner.name },
-            )}
-            key={owner.id}
-            onClick={() => setSelectedOwner(owner.name)}
+            className={classNames({ 'is-active': selectedOwner === 'All' })}
+            onClick={() => setSelectedOwner('All')}
           >
-            {owner.name}
+            All
           </a>
-        ))}
-      </p>
 
-      <div className="panel-block">
-        <p className="control has-icons-left has-icons-right">
-          <input
-            data-cy="SearchField"
-            type="text"
-            className="input"
-            placeholder="Search"
-            value="qwe"
-          />
-
-          <span className="icon is-left">
-            <i className="fas fa-search" aria-hidden="true" />
-          </span>
-
-          <span className="icon is-right">
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-            <button
-              data-cy="ClearButton"
-              type="button"
-              className="delete"
-            />
-          </span>
+          {owners.map(owner => (
+            <a
+              data-cy="FilterUser"
+              href="#/"
+              className={classNames(
+                { 'is-active': selectedOwner === owner.name },
+              )}
+              key={owner.id}
+              onClick={() => setSelectedOwner(owner.name)}
+            >
+              {owner.name}
+            </a>
+          ))}
         </p>
-      </div>
 
-      <div className="panel-block is-flex-wrap-wrap">
-        <a
-          href="#/"
-          data-cy="AllCategories"
-          className="button is-success mr-6 is-outlined"
-        >
-          All
-        </a>
+        <div className="panel-block">
+          <p className="control has-icons-left has-icons-right">
+            <input
+              data-cy="SearchField"
+              type="text"
+              className="input"
+              placeholder="Search"
+              value={query}
+              onChange={handleQueryChange}
+            />
 
-        <a
-          data-cy="Category"
-          className="button mr-2 my-1 is-info"
-          href="#/"
-        >
-          Category 1
-        </a>
+            <span className="icon is-left">
+              <i className="fas fa-search" aria-hidden="true" />
+            </span>
 
-        <a
-          data-cy="Category"
-          className="button mr-2 my-1"
-          href="#/"
-        >
-          Category 2
-        </a>
+            <span className="icon is-right">
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+              {query.length > 0 && (
+                <button
+                  data-cy="ClearButton"
+                  type="button"
+                  className="delete"
+                  onClick={handleClearClick}
+                />
+              )}
+            </span>
+          </p>
+        </div>
 
-        <a
-          data-cy="Category"
-          className="button mr-2 my-1 is-info"
-          href="#/"
-        >
-          Category 3
-        </a>
-        <a
-          data-cy="Category"
-          className="button mr-2 my-1"
-          href="#/"
-        >
-          Category 4
-        </a>
-      </div>
+        <div className="panel-block is-flex-wrap-wrap">
+          <a
+            href="#/"
+            data-cy="AllCategories"
+            className="button is-success mr-6 is-outlined"
+          >
+            All
+          </a>
 
-      <div className="panel-block">
-        <a
-          data-cy="ResetAllButton"
-          href="#/"
-          className="button is-link is-outlined is-fullwidth"
-        >
-          Reset all filters
-        </a>
-      </div>
-    </nav>
-  </div>
-);
+          <a
+            data-cy="Category"
+            className="button mr-2 my-1 is-info"
+            href="#/"
+          >
+            Category 1
+          </a>
+
+          <a
+            data-cy="Category"
+            className="button mr-2 my-1"
+            href="#/"
+          >
+            Category 2
+          </a>
+
+          <a
+            data-cy="Category"
+            className="button mr-2 my-1 is-info"
+            href="#/"
+          >
+            Category 3
+          </a>
+          <a
+            data-cy="Category"
+            className="button mr-2 my-1"
+            href="#/"
+          >
+            Category 4
+          </a>
+        </div>
+
+        <div className="panel-block">
+          <a
+            data-cy="ResetAllButton"
+            href="#/"
+            className="button is-link is-outlined is-fullwidth"
+          >
+            Reset all filters
+          </a>
+        </div>
+      </nav>
+    </div>
+  );
+};

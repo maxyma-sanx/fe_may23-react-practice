@@ -23,8 +23,15 @@ const products = productsFromServer.map((product) => {
   };
 });
 
-function getFilteredProducts(productList, owner) {
+function getFilteredProducts(productList, owner, query) {
   let filteredProducts = productList;
+
+  const normalizedQuery = query.toLowerCase();
+
+  if (query) {
+    filteredProducts = filteredProducts
+      .filter(product => product.name.toLowerCase().includes(normalizedQuery));
+  }
 
   filteredProducts = filteredProducts.filter(
     (product) => {
@@ -41,8 +48,9 @@ function getFilteredProducts(productList, owner) {
 
 export const App = () => {
   const [selectedOwner, setSelectedOwner] = useState('All');
+  const [query, setQuery] = useState('');
 
-  const visibleProducts = getFilteredProducts(products, selectedOwner);
+  const visibleProducts = getFilteredProducts(products, selectedOwner, query);
 
   return (
     <div className="section">
@@ -53,6 +61,8 @@ export const App = () => {
           owners={usersFromServer}
           selectedOwner={selectedOwner}
           setSelectedOwner={setSelectedOwner}
+          query={query}
+          setQuery={setQuery}
         />
 
         <div className="box table-container">
