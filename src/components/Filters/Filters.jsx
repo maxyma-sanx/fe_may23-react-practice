@@ -6,6 +6,9 @@ export const Filters = ({
   setSelectedOwner,
   query,
   setQuery,
+  categories,
+  setCategories,
+  categoriesList,
 }) => {
   const handleQueryChange = (event) => {
     setQuery(event.target.value);
@@ -18,6 +21,38 @@ export const Filters = ({
   const handleResetClick = () => {
     setQuery('');
     setSelectedOwner('All');
+    setCategories(['All']);
+  };
+
+  const isCheckedCategory = categoryName => categories
+    .some(category => category === categoryName);
+
+  const selectCategory = (categoryName) => {
+    if (categories.includes(categoryName)) {
+      const newCategories = categories
+        .filter(category => category !== categoryName);
+
+      setCategories((prevCategories) => {
+        const updatedCategories = newCategories.length === 0
+          ? ['All']
+          : newCategories;
+
+        return [...updatedCategories];
+      });
+
+      return;
+    }
+
+    if (categoryName === 'All') {
+      setCategories(['All']);
+
+      return;
+    }
+
+    const categoriesWithoutAll = categories
+      .filter(category => category !== 'All');
+
+    setCategories([...categoriesWithoutAll, categoryName]);
   };
 
   return (
@@ -83,41 +118,31 @@ export const Filters = ({
           <a
             href="#/"
             data-cy="AllCategories"
-            className="button is-success mr-6 is-outlined"
+            className={classNames(
+              'button is-success mr-6',
+              { 'is-outlined': !isCheckedCategory('All') },
+            )}
+            onClick={() => selectCategory('All')}
           >
             All
           </a>
 
-          <a
-            data-cy="Category"
-            className="button mr-2 my-1 is-info"
-            href="#/"
-          >
-            Category 1
-          </a>
-
-          <a
-            data-cy="Category"
-            className="button mr-2 my-1"
-            href="#/"
-          >
-            Category 2
-          </a>
-
-          <a
-            data-cy="Category"
-            className="button mr-2 my-1 is-info"
-            href="#/"
-          >
-            Category 3
-          </a>
-          <a
-            data-cy="Category"
-            className="button mr-2 my-1"
-            href="#/"
-          >
-            Category 4
-          </a>
+          {categoriesList.map(currentCategory => (
+            <a
+              data-cy="Category"
+              className={classNames(
+                'button mr-2 my-1',
+                { 'is-info': isCheckedCategory(currentCategory.title) },
+              )}
+              href="#/"
+              key={currentCategory.id}
+              onClick={() => {
+                selectCategory(currentCategory.title);
+              }}
+            >
+              {currentCategory.title}
+            </a>
+          ))}
         </div>
 
         <div className="panel-block">
