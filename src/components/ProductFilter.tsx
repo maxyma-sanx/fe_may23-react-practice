@@ -141,4 +141,4 @@ export const ProductFilter: React.FC<Props> = ({
       </nav>
     </div>
   );
-}
+};

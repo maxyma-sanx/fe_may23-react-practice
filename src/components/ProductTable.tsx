@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import classNames from 'classnames';
 import { Product } from '../types';
+import { ColumnTitle } from './ColumnTitle';
 
 type Props = {
   products: Product[],
@@ -49,93 +51,33 @@ export const ProductTable: React.FC<Props> = ({
     >
       <thead>
         <tr>
-          <th>
-            <span className="is-flex is-flex-wrap-nowrap">
-              ID
+          <ColumnTitle
+            name="ID"
+            onSelect={sortBy}
+            sortType={sortType}
+            isReversed={isReversed}
+          />
 
-              <a
-                href="#/"
-                onClick={() => sortBy('ID')}
-              >
-                <span className="icon">
-                  <i
-                    data-cy="SortIcon"
-                    className={classNames('fas', {
-                      'fa-sort': sortType !== 'ID',
-                      'fa-sort-down': sortType === 'ID' && isReversed,
-                      'fa-sort-up': sortType === 'ID' && !isReversed,
-                    })}
-                  />
-                </span>
-              </a>
-            </span>
-          </th>
+          <ColumnTitle
+            name="Product"
+            onSelect={sortBy}
+            sortType={sortType}
+            isReversed={isReversed}
+          />
 
-          <th>
-            <span className="is-flex is-flex-wrap-nowrap">
-              Product
+          <ColumnTitle
+            name="Category"
+            onSelect={sortBy}
+            sortType={sortType}
+            isReversed={isReversed}
+          />
 
-              <a
-                href="#/"
-                onClick={() => sortBy('Product')}
-              >
-                <span className="icon">
-                  <i
-                    data-cy="SortIcon"
-                    className={classNames('fas', {
-                      'fa-sort': sortType !== 'Product',
-                      'fa-sort-down': sortType === 'Product' && isReversed,
-                      'fa-sort-up': sortType === 'Product' && !isReversed,
-                    })}
-                  />
-                </span>
-              </a>
-            </span>
-          </th>
-
-          <th>
-            <span className="is-flex is-flex-wrap-nowrap">
-              Category
-
-              <a
-                href="#/"
-                onClick={() => sortBy('Category')}
-              >
-                <span className="icon">
-                  <i
-                    data-cy="SortIcon"
-                    className={classNames('fas', {
-                      'fa-sort': sortType !== 'Category',
-                      'fa-sort-down': sortType === 'Category' && isReversed,
-                      'fa-sort-up': sortType === 'Category' && !isReversed,
-                    })}
-                  />
-                </span>
-              </a>
-            </span>
-          </th>
-
-          <th>
-            <span className="is-flex is-flex-wrap-nowrap">
-              User
-
-              <a
-                href="#/"
-                onClick={() => sortBy('User')}
-              >
-                <span className="icon">
-                  <i
-                    data-cy="SortIcon"
-                    className={classNames('fas', {
-                      'fa-sort': sortType !== 'User',
-                      'fa-sort-down': sortType === 'User' && isReversed,
-                      'fa-sort-up': sortType === 'User' && !isReversed,
-                    })}
-                  />
-                </span>
-              </a>
-            </span>
-          </th>
+          <ColumnTitle
+            name="User"
+            onSelect={sortBy}
+            sortType={sortType}
+            isReversed={isReversed}
+          />
         </tr>
       </thead>
 
